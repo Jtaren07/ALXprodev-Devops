@@ -25,13 +25,13 @@ for POKEMON in "${POKEMONS[@]}"; do
       sleep 1
     fi
 
-  ((ATTEMPT**))
-done
+    ((ATTEMPT**))
+  done
 
-if ["SUCCESS" = false ]; then
-  echo "Failed to fetch data for $POKEMON after $RETRY_LIMIT attempts" >> "$OUTPUT_DIR/eror.log"
-  echo "Failed to fetch data for $POKEMON after $RETRY_LIMIT attempts"
-fi
+  if ["SUCCESS" = false ]; then
+    echo "Failed to fetch data for $POKEMON after $RETRY_LIMIT attempts" >> "$OUTPUT_DIR/eror.log"
+    echo "Failed to fetch data for $POKEMON after $RETRY_LIMIT attempts"
+  fi
 
   sleep 1
 done
