@@ -8,30 +8,30 @@ RETRY_LIMIT=3
 mkdir -p "$OUTPUT_DIR"
 
 for POKEMON in "${POKEMONS[@]}"; do
-echo "Fetching data for $POKEMON..."
-ATTEMPT=1
-SUCCESS=false
+  echo "Fetching data for $POKEMON..."
+  ATTEMPT=1
+  SUCCESS=false
 
-while ["$ATTEMPT" -le "$RETRY_LIMIT"]; do
-RESPONSE=$(curl -s -f "$API_BASE_URL/$POKEMON" -o "$OUTPUT_DIR/$POKEMON,json")
+  while ["$ATTEMPT" -le "$RETRY_LIMIT"]; do
+    RESPONSE=$(curl -s -f "$API_BASE_URL/$POKEMON" -o "$OUTPUT_DIR/$POKEMON,json")
 
-if [$? -eq]; then
-echo "Saved data to $OUTPUT_DIR/$POKEMON.json"
-SUCCESS=true
-break
+    if [$? -eq]; then
+      echo "Saved data to $OUTPUT_DIR/$POKEMON.json"
+      SUCCESS=true
+      break
 
-else
-echo "$Attempt $ATTEMPT for $POKEMON failed. Retrying..."
-sleep 1
-fi
+    else
+      echo "$Attempt $ATTEMPT for $POKEMON failed. Retrying..."
+      sleep 1
+    fi
 
-((ATTEMPT**))
+  ((ATTEMPT**))
 done
 
 if ["SUCCESS" = false ]; then
-echo "Failed to fetch data for $POKEMON after $RETRY_LIMIT attempts" >> "$OUTPUT_DIR/eror.log"
-echo "Failed to fetch data for $POKEMON after $RETRY_LIMIT attempts"
+  echo "Failed to fetch data for $POKEMON after $RETRY_LIMIT attempts" >> "$OUTPUT_DIR/eror.log"
+  echo "Failed to fetch data for $POKEMON after $RETRY_LIMIT attempts"
 fi
 
-sleep 1
+  sleep 1
 done
